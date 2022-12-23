@@ -1,0 +1,21 @@
+services:
+  webapp:
+    build:
+      context: ./nodejs-app/
+    container_name: webapp
+    networks:
+      - app-network
+  webserver:
+    build:
+      context: ./nginx/
+    container_name: webserver
+    restart: always
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+    depends_on:
+      - webapp
+
+networks:
+  app-network: {}
